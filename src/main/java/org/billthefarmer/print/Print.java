@@ -255,42 +255,29 @@ public class Print extends Activity
     {
         // Get id
         int id = item.getItemId();
-        switch (id)
-        {
-            // Home
-        case android.R.id.home:
+             // Home
+        if (id == android.R.id.home) {
             // Back navigation
-            if (webView != null && webView.canGoBack())
+            if (webView != null && webView.canGoBack()) {
                 webView.goBack();
-
-            else
+            } else {
                 finish();
-            break;
-
+            }
             // Print
-        case R.id.action_print:
+        } else if (id == R.id.action_print) {
             print();
-            break;
-
             // Open
-        case R.id.action_open:
+        } else if (id == R.id.action_open) {
             open();
-            break;
-
             // Open
-        case R.id.action_markdown:
+        } else if (id == R.id.action_markdown) {
             markdown(item);
-            break;
-
             // About
-        case R.id.action_about:
+        } else if (id == R.id.action_about) {
             about();
-            break;
-
-        default:
+        } else {
             return false;
         }
-
         return true;
     }
 
