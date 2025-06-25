@@ -159,48 +159,50 @@ public class Print extends Activity
             else
             {
                 Intent intent = getIntent();
-                switch (intent.getAction())
-                {
-                case Intent.ACTION_VIEW:
-                {
-                    // Get uri
-                    Uri uri = intent.getData();
-                    if (uri != null)
-                        readFile(uri);
-                    break;
-                }
-
-                case Intent.ACTION_SEND:
-                {
-                    // Get uri
-                    Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-                    String html = intent.getStringExtra(Intent.EXTRA_HTML_TEXT);
-                    String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-                    if (uri != null)
-                        readFile(uri);
-
-                    else if (html != null)
-                    {
-                        if (URLUtil.isNetworkUrl(html))
-                            webView.loadUrl(html);
-
-                        else
-                            loadText(html);
-                    }
-
-                    else if (text != null)
-                    {
-                        if (URLUtil.isNetworkUrl(text))
-                            webView.loadUrl(text);
-
-                        else
-                            loadText(text);
-                    }
-                    break;
-                }
-                default:
+                if (intent.getAction() == null)
                     webView.loadUrl(ASSET_URL);
-                }
+                else
+                    switch (intent.getAction()) {
+                        case Intent.ACTION_VIEW:
+                        {
+                            // Get uri
+                            Uri uri = intent.getData();
+                            if (uri != null)
+                                readFile(uri);
+                            break;
+                        }
+
+                        case Intent.ACTION_SEND:
+                        {
+                            // Get uri
+                            Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                            String html = intent.getStringExtra(Intent.EXTRA_HTML_TEXT);
+                            String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+                            if (uri != null)
+                                readFile(uri);
+
+                            else if (html != null)
+                            {
+                                if (URLUtil.isNetworkUrl(html))
+                                    webView.loadUrl(html);
+
+                                else
+                                    loadText(html);
+                            }
+
+                            else if (text != null)
+                            {
+                                if (URLUtil.isNetworkUrl(text))
+                                    webView.loadUrl(text);
+
+                                else
+                                    loadText(text);
+                            }
+                            break;
+                        }
+                        default:
+                            webView.loadUrl(ASSET_URL);
+                    }
             }
         }
     }
